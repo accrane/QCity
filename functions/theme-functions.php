@@ -229,3 +229,20 @@ function my_column_register_sortable( $columns )
 }
 
 add_filter("manage_edit-event_sortable_columns", "my_column_register_sortable" );
+// Sanatize the ACF form inputs
+function my_kses_post( $value ) {
+	
+	// is array
+	if( is_array($value) ) {
+	
+		return array_map('my_kses_post', $value);
+	
+	}
+	
+	
+	// return
+	return wp_kses_post( $value );
+
+}
+
+add_filter('acf/update_value', 'my_kses_post', 10, 1);

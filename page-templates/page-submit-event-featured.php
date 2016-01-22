@@ -2,9 +2,10 @@
 /**
  * Template Name: Event Submit Featured
  */
-acf_form_head();
 // sanitize inputs
 add_filter('acf/update_value', 'wp_kses_post', 10, 1);
+acf_form_head();
+
 
 get_header(); ?>
 
@@ -17,7 +18,7 @@ get_header(); ?>
                 <h1 class="pagetitle"><?php the_title(); ?></h1>
                 
 				<?php the_content(); 
-					$return = get_bloginfo('url') . '/submit-an-event/submit-featured-event/pay-featured-event';
+					$return = get_bloginfo('url') . '/submit-an-event/submit-featured-event/pay-featured-event/';
                 $formArg = array (
 					'id' => 'acf-featured-event-form',
 					'post_id'		=> 'new_post',
@@ -48,7 +49,7 @@ get_header(); ?>
 						'post_type'		=> 'event',
 						'post_status'		=> 'pending',
 						'post_title'    => 'My Event post',
-						'tax_input'      => 'featured'
+						'tax_input'      => array('event_category'=>'featured')
 						),
 					'submit_value'		=> 'Add My Event'
 					);

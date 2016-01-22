@@ -15,7 +15,7 @@ $wp_query = new WP_Query();
 	'pagename' => 'homepage'
 ));
 if ($wp_query->have_posts()) :  while ($wp_query->have_posts()) :  $wp_query->the_post();
-
+$sponsoredPost = get_field('sponsored_content', 349);
 $featuredPost = get_field('featured_post');
 $section1 = get_field('section_1_article');
 $section2 = get_field('section_2_article');
@@ -157,7 +157,7 @@ endwhile; endif; wp_reset_query();
 							$wp_query->query(array(
 								//'category_name' => $category,
 								'post_type' => 'post',
-								'posts_per_page' => '3', // 4 if sponsored, 5 if no sponsored
+								'posts_per_page' => '1', // 4 if sponsored, 5 if no sponsored
 								'category__not_in' => 30,
 								'post__not_in' => $ids
 							));
@@ -194,37 +194,60 @@ endwhile; endif; wp_reset_query();
 							   $ids[] = get_the_ID();
 							endwhile; endif; // end query 3 latest
 							
-							$wp_query = new WP_Query();
-							$wp_query->query(array(
-								'category_name' => $category,
-								'post_type' => 'post',
-								'posts_per_page' => '1',
-								//'post__not_in' => $ids,
-								'category_name' => 'sponsored'
-							));
-							if ($wp_query->have_posts()) : while ($wp_query->have_posts()) : $wp_query->the_post(); ?>
+							// $wp_query = new WP_Query();
+							// $wp_query->query(array(
+							// 	'category_name' => $category,
+							// 	'post_type' => 'post',
+							// 	'posts_per_page' => '1',
+							// 	//'post__not_in' => $ids,
+							// 	'category_name' => 'sponsored'
+							// ));
+							// if ($wp_query->have_posts()) : while ($wp_query->have_posts()) : $wp_query->the_post(); 
+
+						// Post Type Order Plugin installed, so get that outta here
+										remove_all_filters('posts_orderby');
+
+										// put Sponsored content choices in here.
+										$pickedids = array();
+										$pickedids[] = $sponsoredPost[0]->ID;
+										$pickedids[] = $sponsoredPost[1]->ID;
+										$pickedids[] = $sponsoredPost[2]->ID;
+										$myIDs = implode(', ', $pickedids);
+										
+										if( $sponsoredPost ) :
+
+											$posts_array = get_posts(array(
+												'numberposts' => 1, // posts_per_page doesn't work here either.
+												'post_type' => 'post',
+												'include' => $myIDs, // for some reason, post__in doesn't work here.
+												'orderby' => 'rand',
+											));
+
+											$numSponsPost = 0;
+
+											foreach( $posts_array as $post ) : $numSponsPost++;
+												//global $post;
+												setup_postdata( $post ); 
+												//echo $post->ID .'<br>';
+													get_template_part('cat/sponsored-post'); 
+												// get more ids
+							   					$ids[] = get_the_ID();
+												wp_reset_postdata();
+												// after 1 get out.
+												if( $numSponsPost == 1 ) {break;}
+											endforeach;
+
+										endif;
+
+							?>
                           
                             
-                          <div class="small-post-sponsored"> 
-                         		 <a href="<?php the_permalink(); ?>">
-                            		<div class="small-post-thumb">
-                                    <?php if ( has_post_thumbnail() ) {
-													the_post_thumbnail('thumbnail');
-													
-												} ?>
-                                    </div><!-- small post thumb -->
-                                    <div class="small-post-content">
-                                    	<h3>Sponsored Content</h3>
-                                        <div class="clear"></div>
-                                        <h2><?php the_title(); ?></h2>
-                                    </div><!-- small post content -->
-                            		</a>
-                          </div><!-- small post sponsored --> 
+                          <!-- 1-18-16 -->
                           
                           <?php 
 							// get more ids
 							   $ids[] = get_the_ID();
-							endwhile; endif;  //end for each category ?>
+							//endwhile; endif;  //end for each category ?>
                             
                             <?php 
 							// Query latest three posts excluding the previously queried posts
@@ -232,7 +255,7 @@ endwhile; endif; wp_reset_query();
 							$wp_query->query(array(
 								'category_name' => $category,
 								'post_type' => 'post',
-								'posts_per_page' => '1', // 4 if sponsored, 5 if no sponsored
+								'posts_per_page' => '3', // 4 if sponsored, 5 if no sponsored
 								/*'category__not_in' => 30,*/
 								'post__not_in' => $ids
 							));
@@ -295,12 +318,12 @@ endwhile; endif; wp_reset_query();
             $posts = $section1;
             foreach( $posts as $post): 
 			 setup_postdata( $post ); 
-			 $term = get_the_terms($section1, 'category');
+			 $term = get_the_terms($section1->ID, 'category');
 			 $termId = $term[0]->term_id;
 			 $color = get_field( 'category_color', 'category_'.$termId );
 			 $video = get_field( 'video_single_post' ); 
-			/* echo '<pre>';
-			 print_r($color);*/
+			 // echo '<pre>';
+			 // print_r($section1);
 			 ?>	
             <div class="solid-border-title" style="border-bottom: 3px solid <?php echo $color; ?>">
                 <h2 style="background-color: <?php echo $color; ?>"><?php echo $term[0]->name; ?></h2>
@@ -337,7 +360,7 @@ endwhile; endif; wp_reset_query();
             $posts = $section2; 
             foreach( $posts as $post):
 			 setup_postdata( $post ); 
-			 $term = get_the_terms($section2, 'category');
+			 $term = get_the_terms($section2->ID, 'category');
 			 $termId = $term[0]->term_id;
 			 $color = get_field( 'category_color', 'category_'.$termId ); 
 			 $video = get_field( 'video_single_post' );
@@ -377,7 +400,7 @@ endwhile; endif; wp_reset_query();
             $posts = $section3; 
             foreach( $posts as $post):
 			 setup_postdata( $post ); 
-			 $term = get_the_terms($section3, 'category');
+			 $term = get_the_terms($section3->ID, 'category');
 			 $termId = $term[0]->term_id;
 			 $color = get_field( 'category_color', 'category_'.$termId ); 
 			 $video = get_field( 'video_single_post' );

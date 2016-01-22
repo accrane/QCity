@@ -2,9 +2,10 @@
 /**
  * Template Name: Event Submit Premium
  */
+add_filter('acf/update_value', 'wp_kses_post', 10, 1);
 acf_form_head();
 // sanitize inputs
-add_filter('acf/update_value', 'wp_kses_post', 10, 1);
+
 
 get_header(); ?>
 
@@ -17,12 +18,12 @@ get_header(); ?>
                 <h1 class="pagetitle"><?php the_title(); ?></h1>
                 
 				<?php the_content();
-				$return = get_bloginfo('url') . '/submit-an-event/submit-premium-event/pay-premium-event'; 
+				$return = get_bloginfo('url') . '/submit-an-event/submit-premium-event/pay-premium-event/'; 
                 $formArg = array (
 					'id' => 'acf-premium-event-form',
 					'post_id'		=> 'new_post',
-					'post_title' => true,
 					'return' => $return,
+					'post_title' => true,
 					///'post_content' => true,
 					'form' => true,
 					'fields' => array(
@@ -48,7 +49,7 @@ get_header(); ?>
 						'post_type'		=> 'event',
 						'post_status'		=> 'pending',
 						'post_title'    => 'My Event post',
-						'tax_input'      => 'premium'
+						'tax_input'      => array('event_category'=>'premium')
 						),
 					'submit_value'		=> 'Add My Event'
 					);

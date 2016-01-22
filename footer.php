@@ -8,7 +8,7 @@
  * @subpackage Twenty_Twelve
  * @since Twenty Twelve 1.0
  */
- 
+ wp_reset_postdata();
  if( !is_front_page() ) {
 	 
  } elseif ( !is_single() ) {
@@ -16,7 +16,10 @@
  } elseif ( !is_page(52) ) {
 	 
  } else  {
- get_template_part('ads/leaderboard-interior'); 
+ 	// If is not in Sponsored Content, proceed
+	if(!in_category(30)) :
+ 		get_template_part('ads/leaderboard-interior'); 
+ 	endif;
  }
 ?>
 	</div><!-- #main .wrapper -->
@@ -59,8 +62,10 @@
 	</footer><!-- #colophon -->
 </div><!-- #page -->
 <?php the_field('google_analytics','option'); ?>
-<?php wp_footer(); ?>
+<?php 
+acf_enqueue_uploader();
+wp_footer(); ?>
 
-
+<!-- liquid web -->
 </body>
 </html>

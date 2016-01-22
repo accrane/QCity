@@ -44,6 +44,9 @@ if( is_category('6') ) {
 		$term = 'category_'.$categoryId;
 		$sponsoredPost = get_field('sponsored_post', $term);
 		$featuredPost = get_field('post', $term);
+		if( is_category(6) ) {
+			$hCat = 'health-cat';
+		}
 		/// get the ID of the post that's chosen so you don't repeat yourself
 		if( $featuredPost )  :
 		// override $post
@@ -138,59 +141,98 @@ $i++;
 		
 		// 		Only Health Category
 		//   ______________________________________________________________
-		if( is_category(6) ) :
+		if( $hCat == 'health-cat' ) :
 		if ( $health == 1 ) {
 		if( $sponsoredPost ) :
-		$post = get_post($sponsoredPost); 
-		setup_postdata( $post ); 
-		
-			get_template_part('cat/sponsored-post'); 
-		
-		wp_reset_postdata();
+		//$post = get_post($sponsoredPost); 
+			foreach( $sponsoredPost as $post ) :
+				setup_postdata( $post ); 
+				
+					get_template_part('cat/sponsored-post'); 
+				
+				wp_reset_postdata();
+			endforeach;
 		endif;
 		}
 		endif; // endif is health category
 
 ?>
 <div class="small-post">
-<a href="<?php the_permalink(); ?>">
+	<a href="<?php the_permalink(); ?>">
 
-<?php if ( has_post_thumbnail() ) { ?>
-        <div class="small-post-thumb">
-        <?php the_post_thumbnail('thumbnail'); ?>
-      </div><!-- small post thumb -->
-     <?php } ?>
+	<?php if ( has_post_thumbnail() ) { ?>
+	        <div class="small-post-thumb">
+	        <?php the_post_thumbnail('thumbnail'); ?>
+	      </div><!-- small post thumb -->
+	     <?php } ?>
 
-<div class="<?php echo $smallClass; ?>">
-    <h3><?php echo $categoryName; ?></h3>
-    <div class="clear"></div>
-    <h2><?php the_title(); ?></h2>
-</div><!-- small post content -->
-</a>
+	<div class="<?php echo $smallClass; ?>">
+	    <h3><?php echo $categoryName; ?></h3>
+	    <div class="clear"></div>
+	    <h2><?php the_title(); ?></h2>
+	</div><!-- small post content -->
+	</a>
 </div><!-- small post -->
         
         <?php
-		//echo $bars;
-		//echo $postcount;
-        if ( $bars == 4 || $i == $postcount ) { // after 4 we break out. 
+       
+		// echo 'bars -'.$bars;
+		// echo 'postcount -'.$postcount;
+		// echo 'i -'.$i;
+        //if ( $bars == 4 || $i == $postcount ) { // after 4 we break out. 
+        if ( $bars == 1  ) { // break to show sponsored. 
 		
 		
 		// 			Before close, grab sponsored content if there is one.
 		//			But not Health category
 		//   ______________________________________________________________
-		if( !is_category(6) ) :
-		if( $sponsoredPost ) :
-		$post = get_post($sponsoredPost); 
-		setup_postdata( $post ); 
-		
-			get_template_part('cat/sponsored-post'); 
-		
-		wp_reset_postdata();
-		endif;
-		endif; // endif is not health category
-		?>
+			if( $hCat !== 'health-cat' ) :
+
+				// Post Type Order Plugin installed, so get that outta here
+				remove_all_filters('posts_orderby');
+
+				// put Sponsored content choices in here.
+				$ids = array();
+				$ids[] = $sponsoredPost[0]->ID;
+				$ids[] = $sponsoredPost[1]->ID;
+				$ids[] = $sponsoredPost[2]->ID;
+				$myIDs = implode(', ', $ids);
+				
+				if( $sponsoredPost ) :
+
+					$posts_array = get_posts(array(
+						'numberposts' => 1, // posts_per_page doesn't work here either.
+						'post_type' => 'post',
+						'include' => $myIDs, // for some reason, post__in doesn't work here.
+						'orderby' => 'rand',
+					));
+
+					$numSponsPost = 0;
+
+					foreach( $posts_array as $post ) : $numSponsPost++;
+						//global $post;
+						setup_postdata( $post ); 
+						//echo $post->ID .'<br>';
+							get_template_part('cat/sponsored-post'); 
+						
+						wp_reset_postdata();
+						// after 1 get out.
+						if( $numSponsPost == 1 ) {break;}
+					endforeach;
+
+				endif;
+			endif; // endif is not health category
+
+} elseif ( $bars == 4 || $i == $postcount ) { // after 4 we break out. { ?>
+			
+			
+
+
 			</section>
 	 </div><!-- homebars -->
+
+
+
 </div><!-- site content -->
      <!-- 
 			Ad Zone right big 
@@ -209,7 +251,7 @@ $i++;
         
         <div class="clear"></div>
      
-     <?php } ?>
+     <?php } // endif bars == 4 ?>
         
         
         <?php } else { // end small bars 

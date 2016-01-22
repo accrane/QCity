@@ -7,7 +7,7 @@
                     } ?>
         </div><!-- small post thumb -->
         <div class="small-post-content">
-            <h3>Sponsored Content</h3>
+            <h3>Qcity Curious</h3>
             <div class="clear"></div>
             <h2><?php the_title(); ?></h2>
         </div><!-- small post content -->

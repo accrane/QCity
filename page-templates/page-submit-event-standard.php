@@ -50,7 +50,7 @@ $return = get_bloginfo('url').'/submit-an-event/submit-standard-event/success-yo
 						'post_type'		=> 'event',
 						'post_status'		=> 'pending',
 						'post_title'    => 'My Event post',
-						'tax_input'      => 'standard'
+						'tax_input'      => array('event_category'=>'standard')
 						),
 					'submit_value'		=> 'Add My Event'
 					);
