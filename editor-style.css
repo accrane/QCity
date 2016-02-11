@@ -2,7 +2,7 @@
 Theme Name: Twenty Twelve
 Description: Used to style the TinyMCE editor.
 */
-
+@import url(https://fonts.googleapis.com/css?family=Droid+Serif:400,700);
 html {
 	font-size: 87.5%;
 }
@@ -339,4 +339,9 @@ img.wp-smiley {
 	line-height: 2;
 	margin: 0 0 24px;
 	margin: 0 0 1.71429rem;
+}
+.alternate-title {
+	color: #824129;
+	font-size: 22px;
+	font-family: 'Droid Serif', serif;
 }

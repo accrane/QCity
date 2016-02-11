@@ -44,10 +44,14 @@ endif;
 				</header><!-- .archive-header -->
                 
                 <div class="entry-content">
-                	<?php if ( has_post_thumbnail() ) {
-                        the_post_thumbnail('large');
-                        
-                    } ?>
+
+                	<div class="big-story-image">
+                		<?php if ( has_post_thumbnail() ) {
+	                        the_post_thumbnail('original');
+	                        
+	                    } ?>
+                	</div>
+                	
                  
                 	<h1 class="posttitle"><?php the_title(); ?></h1> 
 				</div><!-- entry-content -->

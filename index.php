@@ -157,11 +157,18 @@ endwhile; endif; wp_reset_query();
 							$wp_query->query(array(
 								//'category_name' => $category,
 								'post_type' => 'post',
-								'posts_per_page' => '1', // 4 if sponsored, 5 if no sponsored
+								'posts_per_page' => 1, // 4 if sponsored, 5 if no sponsored
 								'category__not_in' => 30,
-								'post__not_in' => $ids
+								'post__not_in' => $ids,
+								'no_found_rows' => true
 							));
 							if ($wp_query->have_posts()) : while ($wp_query->have_posts()) : $wp_query->the_post(); 
+
+							// if ( in_array( get_the_ID(), $ids ) ) {
+					  //           continue;
+					  //       }
+
+
 							if ( has_post_thumbnail() ) {
 								$smallClass = 'small-post-content';
 							} else {
@@ -257,7 +264,8 @@ endwhile; endif; wp_reset_query();
 								'post_type' => 'post',
 								'posts_per_page' => '3', // 4 if sponsored, 5 if no sponsored
 								/*'category__not_in' => 30,*/
-								'post__not_in' => $ids
+								'post__not_in' => $ids,
+								'no_found_rows' => true
 							));
 							if ($wp_query->have_posts()) : while ($wp_query->have_posts()) : $wp_query->the_post(); 
 							if ( has_post_thumbnail() ) {
@@ -465,7 +473,8 @@ endwhile; endif; wp_reset_query();
             $wp_query = new WP_Query();
 			$wp_query->query(array(
 				'post_type' => 'gallery',
-				'posts_per_page' => '2'
+				'posts_per_page' => '2',
+				'no_found_rows' => true
 			));
 			if ($wp_query->have_posts()) : while ($wp_query->have_posts()) : $wp_query->the_post(); 
 			$main_field = get_field('photos');

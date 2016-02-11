@@ -246,3 +246,42 @@ function my_kses_post( $value ) {
 }
 
 add_filter('acf/update_value', 'my_kses_post', 10, 1);
+/*-------------------------------------
+	Custom WYSIWYG Styles
+---------------------------------------*/
+function acc_custom_styles($buttons) {
+	array_unshift($buttons, 'styleselect');
+	return $buttons;
+}
+add_filter('mce_buttons_2', 'acc_custom_styles');
+/*
+* Callback function to filter the MCE settings
+*/
+ 
+function my_mce_before_init_insert_formats( $init_array ) {  
+ 
+// Define the style_formats array
+ 
+	$style_formats = array(  
+		// Each array child is a format with it's own settings
+		array(  
+			'title' => 'Alternate Title',  
+			'block' => 'span',  
+			'classes' => 'alternate-title',
+			'wrapper' => true,
+			
+		)
+	);  
+	// Insert the array, JSON ENCODED, into 'style_formats'
+	$init_array['style_formats'] = json_encode( $style_formats );  
+	
+	return $init_array;  
+  
+} 
+// Attach callback to 'tiny_mce_before_init' 
+add_filter( 'tiny_mce_before_init', 'my_mce_before_init_insert_formats' ); 
+// Add styles to WYSIWYG in your theme's editor-style.css file
+function my_theme_add_editor_styles() {
+    add_editor_style( 'editor-style.css' );
+}
+add_action( 'init', 'my_theme_add_editor_styles' );

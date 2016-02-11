@@ -78,30 +78,21 @@ if( is_category('6') ) {
 
 <?php
 	$health = 0;
-	$wp_query = new WP_Query(
+	$wp_query = new WP_Query();
+	$wp_query->query(array(
+	'post_type'=>'post',
+	'posts_per_page' => $numPosts,
+	'paged' => $paged,
+	'post__not_in' => $ids,
+	'tax_query' => array(
 		array(
-			'post_type'=>'post',
-			'posts_per_page' => $numPosts + count( $posts_to_exclude ),
-			'paged' => $paged,
-			//'post__not_in' => $ids,
-			'tax_query' => array(
-				array(
-					'taxonomy' => 'category', // your custom taxonomy
-					'field' => 'slug',
-					'terms' => array( $category ) // the terms (categories) you created
-				)
-			)
+			'taxonomy' => 'category', // your custom taxonomy
+			'field' => 'slug',
+			'terms' => array( $category ) // the terms (categories) you created
 		)
-
-		);
-	;
+	)
+));
 if ($wp_query->have_posts()) : while ($wp_query->have_posts()) :  $wp_query->the_post();	
-
-	if ( in_array( get_the_ID(), $ids ) ) {
-        continue;
-    }
-
-
 $postcount = $wp_query->post_count;
 //         This is page ONE contents ONLY
 
@@ -389,8 +380,7 @@ $wp_query = new WP_Query();
     'meta_value' => $thedate,
     'meta_compare' => '>=',
 	'orderby' => 'meta_value_num',
-	'order' => 'ASC',
-	'no_found_rows' => true
+	'order' => 'ASC'
 ));
 if ($wp_query->have_posts()) : while($wp_query->have_posts()) : $wp_query->the_post();
 
