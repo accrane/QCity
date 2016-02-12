@@ -8,12 +8,13 @@ Description: Responsive for Bellaworks
 */
 
 
-@import url(https://fonts.googleapis.com/css?family=Martel+Sans:400,700);
-@import url(https://fonts.googleapis.com/css?family=Arimo);
+/*@import url(https://fonts.googleapis.com/css?family=Martel+Sans:400,700);*/
+/*@import url(https://fonts.googleapis.com/css?family=Arimo);*/
 @import url(https://fonts.googleapis.com/css?family=Droid+Serif:400,700);
-@import url(https://fonts.googleapis.com/css?family=Enriqueta);
+/*@import url(https://fonts.googleapis.com/css?family=Enriqueta);*/
 @import url(https://fonts.googleapis.com/css?family=Oswald:400,300);
-@import url(https://fonts.googleapis.com/css?family=Raleway);
+/*@import url(https://fonts.googleapis.com/css?family=Raleway);*/
+@import url(https://fonts.googleapis.com/css?family=Montserrat);
 
 /* =Reset
 -------------------------------------------------------------- */
@@ -562,7 +563,8 @@ html {
 body {
 	font-size: 14px;
 	/*font-family: 'Martel Sans', sans-serif;*/
-	font-family: 'Raleway', sans-serif;
+	/*font-family: 'Raleway', sans-serif;*/
+	font-family: 'Montserrat', sans-serif;
 	text-rendering: optimizeLegibility;
 	/*color: #444;*/
 	color: #222;
@@ -594,7 +596,8 @@ a:hover {
 .button-advertise p {
 	text-transform: none;
 	/*font-family: 'Martel Sans', sans-serif;*/
-	font-family: 'Raleway', sans-serif;
+	/*font-family: 'Raleway', sans-serif;*/
+	font-family: 'Montserrat', sans-serif;
 }
 .button a, .button-advertise {
 	padding:10px 0;
@@ -1162,7 +1165,8 @@ nav.footermenu a {
 .footer-left, .footer-right {width: 100%; margin: 0 0 30px 0;text-align: center;}
 .email-signup {
 	/*font-family: 'Martel Sans', sans-serif;*/
-	font-family: 'Raleway', sans-serif;
+	/*font-family: 'Raleway', sans-serif;*/
+	font-family: 'Montserrat', sans-serif;
 	font-size:14px;
 	text-transform: uppercase;
 	margin-bottom: 10px;
@@ -1212,7 +1216,8 @@ event-link a, .event-box-link a, .submit-box-link a {background-image: url(image
 	float:right;
 	text-align: left;
 	/*font-family: 'Martel Sans', sans-serif;*/
-	font-family: 'Raleway', sans-serif;
+	/*font-family: 'Raleway', sans-serif;*/
+	font-family: 'Montserrat', sans-serif;
 }
 .event-day {
 	color: #CCA90B;
@@ -1426,7 +1431,8 @@ figcaption {
         font-size: 11px !important;
 		line-height: 1.3 !important;
     /*font-family: 'Martel Sans', sans-serif;*/
-	font-family: 'Raleway', sans-serif;
+	/*font-family: 'Raleway', sans-serif;*/
+	font-family: 'Montserrat', sans-serif;
 	opacity: .4;
 	transition: opacity 0.3s ease;
 }
@@ -1683,7 +1689,8 @@ article.sticky .featured-post {
 .mu_register {
 	line-height: 1.5;
 	/*font-family: 'Martel Sans', sans-serif;*/
-	font-family: 'Raleway', sans-serif;
+	/*font-family: 'Raleway', sans-serif;*/
+	font-family: 'Montserrat', sans-serif;
 	color: #222;
 	position: relative;
 }
@@ -2375,7 +2382,8 @@ section#third {
 	font-size: 12px;
 	line-height: 1.2;
 	/*font-family: 'Martel Sans', sans-serif;*/
-	font-family: 'Raleway', sans-serif;
+	/*font-family: 'Raleway', sans-serif;*/
+	font-family: 'Montserrat', sans-serif;
 }
 .extra-cat-first {
 	margin: 0 2% 30px 0;
