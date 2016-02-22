@@ -136,10 +136,10 @@ function custom_enter_title( $input ) {
 add_filter( 'acf/get_valid_field', 'change_input_labels');
 function change_input_labels($field) {
 //$formId = $_POST['acf']['id'];
-/*$formId = $_POST['acf']['id'];
-echo '<pre>';
-print_r($formId);
-echo '</pre>';*/
+//$formId = $_POST['acf']['id'];
+// echo '<pre>';
+// print_r($formId);
+// echo '</pre>';
 if( is_page(474) ) {
 	if($field['name'] == '_post_title') {
 		$field['label'] = 'Church Name';

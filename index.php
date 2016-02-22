@@ -263,7 +263,7 @@ endwhile; endif; wp_reset_query();
 								'category_name' => $category,
 								'post_type' => 'post',
 								'posts_per_page' => '3', // 4 if sponsored, 5 if no sponsored
-								/*'category__not_in' => 30,*/
+								'category__not_in' => 30,
 								'post__not_in' => $ids,
 								'no_found_rows' => true
 							));
