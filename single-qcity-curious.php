@@ -46,10 +46,13 @@ endif;
                 <div class="entry-content">
 
                 	<div class="big-story-image">
-                		<?php if ( has_post_thumbnail() ) {
-	                        the_post_thumbnail('original');
-	                        
-	                    } ?>
+                		<?php if($storyImage != '') { ?>
+                		<img src="<?php echo $thumb; ?>" alt="<?php echo $alt; ?>" title="<?php echo $title; ?>" />
+                		<?php 
+                	} elseif ( has_post_thumbnail() ) {
+                		the_post_thumbnail('original');
+	                } 
+	                    ?>
                 	</div>
                 	
                  

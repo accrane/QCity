@@ -136,11 +136,11 @@ echo $category[0]->cat_name;?></div>
 ======================================================== -->        
         <div class="widget-area">
         	<?php 
-        	// If is IN the Sponsored Content... Show sponsored content posts
-        	if( in_category(30) ): ?>
+        	// If is not in Health category... Show sponsored content posts
+        	if( !in_category(6) ): ?>
         	<div class="about-sponsored">
-        		<div class="about-sponsored-tab">About Qcity Curious</div>
-        		<?php the_field('sponsored_content_verbiage', 'option'); ?>
+        		<div class="about-sponsored-tab"></div>
+        		
         	</div>
         		<?php 
         		wp_reset_postdata();
@@ -182,6 +182,10 @@ echo $category[0]->cat_name;?></div>
 
         	endwhile; endif; // end sponsored posts category
         	endif; // end the sponored categoyr post
+        	
+        	wp_reset_postdata();
+			wp_reset_query();
+
         	// If is not in Sponsored Content, proceed
         	if(!in_category(30)) :
 				if( in_category('6') ) {
