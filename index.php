@@ -220,7 +220,7 @@ endwhile; endif; wp_reset_query();
 										$pickedids[] = $sponsoredPost[1]->ID;
 										$pickedids[] = $sponsoredPost[2]->ID;
 										$myIDs = implode(', ', $pickedids);
-										
+										//echo $myIDs;
 										if( $sponsoredPost ) :
 
 											$posts_array = get_posts(array(

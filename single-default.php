@@ -135,11 +135,30 @@ echo $category[0]->cat_name;?></div>
 
 ======================================================== -->        
         <div class="widget-area">
+
+        	<?php
+
+        	// If is not in Sponsored Content, proceed
+        	if(!in_category(30)) :
+				if( in_category('6') ) {
+					get_template_part('ads/right-big-health'); 
+				} else {
+					get_template_part('ads/right-big'); 
+				} ?>
+	            <?php 
+				if( in_category('6') ) {
+					get_template_part('ads/right-small-health'); 
+				} else {
+					get_template_part('ads/right-small'); 
+				} 
+			endif; // if not in sponsored Cat
+			?>
+        	
         	<?php 
         	// If is not in Health category... Show sponsored content posts
         	if( !in_category(6) ): ?>
         	<div class="about-sponsored">
-        		<div class="about-sponsored-tab"></div>
+        		<!-- <div class="about-sponsored-tab"></div> -->
         		
         	</div>
         		<?php 
@@ -184,23 +203,9 @@ echo $category[0]->cat_name;?></div>
         	endif; // end the sponored categoyr post
         	
         	wp_reset_postdata();
-			wp_reset_query();
+			wp_reset_query(); ?>
 
-        	// If is not in Sponsored Content, proceed
-        	if(!in_category(30)) :
-				if( in_category('6') ) {
-					get_template_part('ads/right-big-health'); 
-				} else {
-					get_template_part('ads/right-big'); 
-				} ?>
-	            <?php 
-				if( in_category('6') ) {
-					get_template_part('ads/right-small-health'); 
-				} else {
-					get_template_part('ads/right-small'); 
-				} 
-			endif; // if not in sponsored Cat
-			?>
+
         </div><!-- widget area -->
         
         <div class="clear"></div>

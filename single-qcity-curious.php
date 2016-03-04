@@ -47,11 +47,9 @@ endif;
 
                 	<div class="big-story-image">
                 		<?php if($storyImage != '') { ?>
-                		<img src="<?php echo $thumb; ?>" alt="<?php echo $alt; ?>" title="<?php echo $title; ?>" />
+                			<img src="<?php echo $thumb; ?>" alt="<?php echo $alt; ?>" title="<?php echo $title; ?>" />
                 		<?php 
-                	} elseif ( has_post_thumbnail() ) {
-                		the_post_thumbnail('original');
-	                } 
+                			}  
 	                    ?>
                 	</div>
                 	
