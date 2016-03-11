@@ -15,6 +15,11 @@ function twentytwelve_setup() {
 }
 add_action( 'after_setup_theme', 'twentytwelve_setup' );
 
+
+// OPtions page
+if( function_exists('acf_add_options_page') ) {
+	acf_add_options_page();
+}
 /**
  * Return the Google font stylesheet URL if available.
  *

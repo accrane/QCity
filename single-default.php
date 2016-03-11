@@ -206,6 +206,15 @@ echo $category[0]->cat_name;?></div>
 			wp_reset_query(); ?>
 
 
+			<?php 
+			// if not in health category, show another add below Qcity Curious
+			if( !in_category('6') ) { 
+			
+				get_template_part('ads/single-right-ad-below-curious');
+
+			} ?>
+
+
         </div><!-- widget area -->
         
         <div class="clear"></div>

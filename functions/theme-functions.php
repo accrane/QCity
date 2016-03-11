@@ -12,10 +12,7 @@ add_image_size('event',150,125,array('center','center'));
 add_image_size('photo',400,250,array('center','center'));
 add_image_size('thirds',400,278,array('center','center'));
 add_image_size('small',250,9999 );
-// OPtions page
-if( function_exists('acf_add_options_page') ) {
-	acf_add_options_page();
-}
+
 // Guest Author
 /*add_filter( 'the_author', 'guest_author_name' );
 add_filter( 'get_the_author_display_name', 'guest_author_name' );
@@ -220,6 +217,7 @@ add_filter("manage_edit-event_columns", "my_page_columns");
 
 /*-------------------------------------------------------------------------------
 	Sortable Columns
+
 -------------------------------------------------------------------------------*/
 
 function my_column_register_sortable( $columns )
@@ -229,23 +227,32 @@ function my_column_register_sortable( $columns )
 }
 
 add_filter("manage_edit-event_sortable_columns", "my_column_register_sortable" );
-// Sanatize the ACF form inputs
-function my_kses_post( $value ) {
-	
-	// is array
-	if( is_array($value) ) {
-	
-		return array_map('my_kses_post', $value);
-	
+
+
+/*-------------------------------------------------------------------------------
+	Sanatize the ACF form inputs
+
+-------------------------------------------------------------------------------*/
+
+// but not if admin because of Ads and Analytics
+if( !is_admin() ) :
+	function my_kses_post( $value ) {
+		
+		// is array
+		if( is_array($value) ) {
+		
+			return array_map('my_kses_post', $value);
+		
+		}
+		
+		
+		// return
+		return wp_kses_post( $value );
+
 	}
-	
-	
-	// return
-	return wp_kses_post( $value );
 
-}
-
-add_filter('acf/update_value', 'my_kses_post', 10, 1);
+	add_filter('acf/update_value', 'my_kses_post', 10, 1);
+endif;
 /*-------------------------------------
 	Custom WYSIWYG Styles
 ---------------------------------------*/
