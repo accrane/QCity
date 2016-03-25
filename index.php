@@ -450,66 +450,83 @@ endwhile; endif; wp_reset_query();
 
 ======================================================== -->      
         <div class="site-content">
+            
             <section>
                 <div class="border-title">
                     <h2>Videos &amp; Photos</h2>
-                    </div><!-- border title -->
+                </div><!-- border title -->
                     
-                    <div class="inner-content-home">
+                    <div class="clear"></div>
+                    
                     <!-- VIDEO GALLERIES -->
                     <?php 
-						$post = get_post(349); 
-						 setup_postdata( $post ); 
-						 $video = get_field('video'); 
-						 echo $video; 
-						 wp_reset_postdata();
+
+                    // This previously showed a auto play video... annoying.
+
+
+						// $post = get_post(349); 
+						//  setup_postdata( $post ); 
+						//  $video = get_field('video'); 
+						//  echo $video; 
+						//  wp_reset_postdata();
 						 ?>
-                      </div><!-- inner content -->    
+                        
                 
-                <div class="inner-area-home">
+                
                 <!-- PHOTO GALLERIES -->
                 <section>
                  <?php 
-            $wp_query = new WP_Query();
-			$wp_query->query(array(
-				'post_type' => 'gallery',
-				'posts_per_page' => '2',
-				'no_found_rows' => true
-			));
-			if ($wp_query->have_posts()) : while ($wp_query->have_posts()) : $wp_query->the_post(); 
-			$main_field = get_field('photos');
-			$first_img = $main_field[0]['photo'];
-			$size = 'photo';
-        	$thumb = $first_img['sizes'][ $size ];
-			/*echo '<pre>';
-			print_r($main_field);*/
-			?>
+                 $iCount = 0;
+	            $wp_query = new WP_Query();
+				$wp_query->query(array(
+					'post_type' => 'gallery',
+					'posts_per_page' => '4',
+					'no_found_rows' => true
+				));
+				if ($wp_query->have_posts()) : while ($wp_query->have_posts()) : $wp_query->the_post(); 
+				$main_field = get_field('photos');
+				$first_img = $main_field[0]['photo'];
+				$size = 'photo';
+	        	$thumb = $first_img['sizes'][ $size ];
+	        	$iCount++;
+	        	if($iCount == 2) {
+	        		$iClass = 'gallery-area-home-right';
+	        		$iCount = 0;
+	        	} else {
+	        		$iClass = 'gallery-area-home-left';
+	        	}
+				/*echo '<pre>';
+				print_r($main_field);*/
+				?>
 			 
-             <div class="gallery-thumb">
-             <a href="<?php the_permalink(); ?>">
-             <div class="gallery-thumb-overlay">
-             	<div class="gallery-thumb-content">
-                	<div class="gallery-thumb-title">
-                    <div class="div-expand">
-					<?php the_title(); ?>
-                    </div></div>
-                    <div class="gallery-thumb-date"><?php echo get_the_date(); ?></div>
-                    <div class="gallery-thumb-more">MORE ></div>
-                </div><!-- gallery thumb content -->
-             </div><!-- gallery-thumb-overlay -->
-			 <?php if ( has_post_thumbnail() ) { 
-             			 the_post_thumbnail(); 
-             		 } else { ?>
-            <?php  echo '<img src="'.$thumb.'" />'; }?>
-            </a>
-             </div><!-- gallery thumb -->
-            
+			 <div class="<?php echo  $iClass; ?>">
+	             <div class="gallery-thumb">
+	             <a href="<?php the_permalink(); ?>">
+	             <div class="gallery-thumb-overlay">
+	             	<div class="gallery-thumb-content">
+	                	<div class="gallery-thumb-title">
+	                    <div class="div-expand">
+						<?php the_title(); ?>
+	                    </div></div>
+	                    <div class="gallery-thumb-date"><?php echo get_the_date(); ?></div>
+	                    <div class="gallery-thumb-more">MORE ></div>
+	                </div><!-- gallery thumb content -->
+	             </div><!-- gallery-thumb-overlay -->
+				 <?php if ( has_post_thumbnail() ) { 
+	             			 the_post_thumbnail(); 
+	             		 } else { ?>
+	            <?php  echo '<img src="'.$thumb.'" />'; }?>
+	            </a>
+	             </div><!-- gallery thumb -->
+            </div><!-- inner area -->
+
             <?php endwhile; endif; ?>
+            <div class="clear"></div>
+            
                 <div class="viewmore button"><a href="<?php bloginfo('url'); ?>/media-gallery">VIEW MORE GALLERIES</a></div>
                 </section>
-                </div><!-- inner area -->
-                <section>
-                </section>
+            
+               
             </section>
         </div><!-- site content -->
         
